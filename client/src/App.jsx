@@ -3,6 +3,8 @@ import Footer from './components/Footer.jsx';
 import NavBar from './components/NavBar.jsx';
 import Home from './pages/Home.jsx';
 import Buses from './pages/Buses.jsx';
+import { buses } from './assets/assets.js';
+import Deck from './components/Deck.jsx';
 
 function App() {
   return (
@@ -10,8 +12,9 @@ function App() {
       <NavBar />
 
       <Routes>
-        <Route path='/' Component={Home}/>
-        <Route path='/routes' Component={Buses} />
+        <Route path='/' element={<Home />} />
+        <Route path='/routes' element={<Buses buses={buses} />} />
+        <Route path='/deck' element = {<Deck />} />
       </Routes>
 
       <Footer />

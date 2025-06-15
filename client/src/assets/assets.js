@@ -88,7 +88,7 @@ export const buses = [
     arrival: '08:30',
     duration: '14.5',
     isNew: false,
-    rating: 4.5,
+    rating: 3.2,
     reviews: 420,
     amenities: {
       ac: true,
@@ -108,7 +108,7 @@ export const buses = [
     arrival: '09:45',
     duration: '12.5',
     isNew: true,
-    rating: 4.7,
+    rating: 1,
     reviews: 280,
     amenities: {
       ac: true,
@@ -128,7 +128,7 @@ export const buses = [
     arrival: '04:30',
     duration: '5.5',
     isNew: false,
-    rating: 4.2,
+    rating: 2.5,
     reviews: 190,
     amenities: {
       ac: true,
@@ -260,3 +260,43 @@ export const buses = [
     minPrice: 1500
   }
 ]
+
+export const seats = [
+  { _id: 1, pos: 'L', window: true, price: 950, isBooked: false, bookingDetails: {} },
+  { _id: 2, pos: 'L', window: true, price: 950, isBooked: true, bookingDetails: { bookedBy: 'Amit Shah', gender: 'Male', inPrice: 1050, bookedTime: '2023-10-15T14:30:00Z' } },
+  { _id: 3, pos: 'L', window: false, price: 900, isBooked: false, bookingDetails: {} },
+  { _id: 4, pos: 'L', window: true, price: 950, isBooked: false, bookingDetails: {} },
+  { _id: 5, pos: 'L', window: true, price: 950, isBooked: true, bookingDetails: { bookedBy: 'Priya Verma', gender: 'Male', inPrice: 975, bookedTime: '2023-10-14T18:45:00Z' } },
+  { _id: 6, pos: 'L', window: false, price: 900, isBooked: false, bookingDetails: {} },
+  { _id: 7, pos: 'L', window: true, price: 950, isBooked: false, bookingDetails: {} },
+  { _id: 8, pos: 'L', window: false, price: 900, isBooked: true, bookingDetails: { bookedBy: 'Rahul Joshi', gender: 'Male', inPrice: 925, bookedTime: '2023-10-16T09:20:00Z' } },
+  { _id: 9, pos: 'L', window: true, price: 950, isBooked: false, bookingDetails: {} },
+  { _id: 10, pos: 'L', window: false, price: 900, isBooked: false, bookingDetails: {} },
+  { _id: 11, pos: 'L', window: true, price: 950, isBooked: true, bookingDetails: { bookedBy: 'Neha Singh', gender: 'Female', inPrice: 1000, bookedTime: '2023-10-15T12:15:00Z' } },
+  { _id: 12, pos: 'L', window: false, price: 900, isBooked: false, bookingDetails: {} },
+  { _id: 13, pos: 'L', window: true, price: 950, isBooked: false, bookingDetails: {} },
+  { _id: 14, pos: 'L', window: false, price: 900, isBooked: true, bookingDetails: { bookedBy: 'Vikram Patel', gender: 'Male', inPrice: 950, bookedTime: '2023-10-14T20:30:00Z' } },
+  { _id: 15, pos: 'L', window: true, price: 950, isBooked: false, bookingDetails: {} },
+  { _id: 16, pos: 'L', window: false, price: 900, isBooked: false, bookingDetails: {} },
+  { _id: 17, pos: 'L', window: true, price: 950, isBooked: true, bookingDetails: { bookedBy: 'Deepika Sharma', gender: 'Female', inPrice: 975, bookedTime: '2023-10-16T11:05:00Z' } },
+  { _id: 18, pos: 'L', window: false, price: 900, isBooked: false, bookingDetails: {} },
+  { _id: 19, pos: 'U', window: true, price: 1050, isBooked: true, bookingDetails: { bookedBy: 'Rajesh Kumar', gender: 'Male', inPrice: 1100, bookedTime: '2023-10-15T16:40:00Z' } },
+  { _id: 20, pos: 'U', window: false, price: 1000, isBooked: false, bookingDetails: {} },
+  { _id: 21, pos: 'U', window: true, price: 1050, isBooked: false, bookingDetails: {} },
+  { _id: 22, pos: 'U', window: false, price: 1000, isBooked: true, bookingDetails: { bookedBy: 'Ananya Mishra', gender: 'Female', inPrice: 1050, bookedTime: '2023-10-14T15:25:00Z' } },
+  { _id: 23, pos: 'U', window: true, price: 1050, isBooked: false, bookingDetails: {} },
+  { _id: 24, pos: 'U', window: true, price: 1050, isBooked: true, bookingDetails: { bookedBy: 'Sanjay Gupta', gender: 'Male', inPrice: 1075, bookedTime: '2023-10-16T10:50:00Z' } },
+  { _id: 25, pos: 'U', window: false, price: 1000, isBooked: false, bookingDetails: {} },
+  { _id: 26, pos: 'U', window: true, price: 1050, isBooked: false, bookingDetails: {} },
+  { _id: 27, pos: 'U', window: false, price: 1000, isBooked: true, bookingDetails: { bookedBy: 'Kavita Reddy', gender: 'Female', inPrice: 1025, bookedTime: '2023-10-15T13:10:00Z' } },
+  { _id: 28, pos: 'U', window: true, price: 1050, isBooked: false, bookingDetails: {} },
+  { _id: 29, pos: 'U', window: false, price: 1000, isBooked: false, bookingDetails: {} },
+  { _id: 30, pos: 'U', window: true, price: 1050, isBooked: true, bookingDetails: { bookedBy: 'Arjun Malhotra', gender: 'Male', inPrice: 1100, bookedTime: '2023-10-14T19:35:00Z' } },
+  { _id: 31, pos: 'U', window: true, price: 1050, isBooked: false, bookingDetails: {} },
+  { _id: 32, pos: 'U', window: false, price: 1000, isBooked: true, bookingDetails: { bookedBy: 'Meera Kapoor', gender: 'Female', inPrice: 1050, bookedTime: '2023-10-16T08:15:00Z' } },
+  { _id: 33, pos: 'U', window: true, price: 1050, isBooked: false, bookingDetails: {} },
+  { _id: 34, pos: 'U', window: true, price: 1050, isBooked: true, bookingDetails: { bookedBy: 'Aditya Desai', gender: 'Male', inPrice: 1075, bookedTime: '2023-10-15T17:55:00Z' } },
+  { _id: 35, pos: 'U', window: false, price: 1000, isBooked: false, bookingDetails: {} },
+  { _id: 36, pos: 'U', window: true, price: 1050, isBooked: true, bookingDetails: { bookedBy: 'Sunita Patil', gender: 'Female', inPrice: 1100, bookedTime: '2023-10-14T21:40:00Z' } }
+]
+
