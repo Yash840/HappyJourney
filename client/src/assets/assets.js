@@ -6,6 +6,8 @@ import DefUser from './def-user.png';
 import DefOpr from './def-opr.png';
 import Banglore from './banglore.jpg';
 import Flogo from './flogo.png';
+import newBanner from './highway.jpg';
+import newnewBanner from './highway2.jpg';
 
 
 export const images = {
@@ -16,7 +18,9 @@ export const images = {
   DefUser,
   DefOpr,
   Banglore,
-  Flogo
+  Flogo,
+  newBanner,
+  newnewBanner
 };
 
 export const footerLinks = [

@@ -1,15 +1,29 @@
-import { use, useState } from "react";
+import { use, useEffect, useState } from "react";
 import BusCard from "../components/BusCard";
 import { filterBuses, sortBusesByPrice } from "../contollers/searchActions";
 import sabg from "../assets/sabg.jpg"
+import { Navigate, useSearchParams } from "react-router-dom";
+import { useAppContext } from "../contexts/AppContext";
+
 
 function Buses({buses}){
   const [busList, setBusList] = useState(buses)
+  const [date, setDate] = useState('');
+  const [fromCity, setFromCity] = useState('');
+  const [toCity, setToCity] = useState('');
   const [criteria, setCriteria] = useState({
     ac : false,
     tv : false,
     chargingPort : false
   });
+  const [searchParams] = useSearchParams();
+  const {navigate} = useAppContext();
+
+  useEffect(() => {
+    setFromCity(searchParams.get('fromCity') || '');
+    setToCity(searchParams.get('toCity') || '');
+    setDate(searchParams.get('onwards') || '');
+  }, [searchParams]); 
 
   return (
     <div className="bg-gray-100">
@@ -23,6 +37,8 @@ function Buses({buses}){
               type="text" 
               name="FROM" 
               placeholder="From" 
+              value={fromCity}
+              onChange={(e) => setFromCity(e.target.value)}
               className="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500"
             />
           </div>
@@ -33,13 +49,21 @@ function Buses({buses}){
               type="text" 
               name="TO" 
               placeholder="To" 
+              value={toCity}
+              onChange={(e) => setToCity(e.target.value)}
               className="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500"
             />
           </div>
           <input 
             type="date" 
+            value={date}
+            onChange={(e) => setDate(e.target.value)}
             className="w-full sm:w-auto px-4 py-2 border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500"
           />
+          <button 
+          onClick={() => navigate(`/buses?fromCity=${fromCity}&toCity=${toCity}&onwards=${date}`)}
+          className="bg-blue-500 p-2 rounded-md text-white font-bold"
+          >GO</button>
         </div>
         <p className="text-gray-700 font-medium">{busList.length} Buses Found</p>
       </div>
@@ -165,13 +189,15 @@ function Buses({buses}){
                   </svg>
                 </div>
                 <div>
-                  <p className="text-sm text-gray-500">From To</p>
+                  <p className="text-sm text-gray-500">{fromCity.toUpperCase()} to {toCity.toUpperCase()}</p>
                   <p className="font-medium">{busList.length} buses available</p>
                 </div>
               </div>
               <div className="bg-gray-100 rounded-lg p-2">
                 <input 
-                  type="date" 
+                  type="date"
+                  value={date}
+                  onChange={(e) => setDate(e.target.value)}
                   className="bg-transparent text-sm font-medium focus:outline-none"
                 />
               </div>

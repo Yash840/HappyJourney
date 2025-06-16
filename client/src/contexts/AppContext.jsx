@@ -10,6 +10,7 @@ export const AppContextProvider = ({children}) => {
   const [billAmt, setBillAmt] = useState(0)
   const navigate = useNavigate();
 
+
   const values = {user, setUser, isOperator, setIsOperator, navigate, selectedSeats, setSelectedSeats, billAmt, setBillAmt};
 
   return (
