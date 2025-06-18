@@ -1,30 +1,37 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { seats } from "../assets/assets";
 import { useAppContext } from "../contexts/AppContext";
+import toast from "react-hot-toast";
 
 const lowerSeats = seats.filter( (seat) => seat.pos === 'L');
 const upperSeats = seats.filter( (seat) => seat.pos === 'U');
 
 
 
-function Deck(){
-  const {selectedSeats, setSelectedSeats, billAmt, setBillAmt} = useAppContext();
+
+function DeckLayout(){
+  const [billAmt, setBillAmt] = useState(0);
+  const {bookingRequest , calculateBillAmt} = useBookingDetails();
   
+  useEffect(() => {
+    setBillAmt(calculateBillAmt())
+  }, [bookingRequest.selected_seats])
+
   return (
-    <div id="deck-wrapper" className="flex flex-col items-center gap-5 m-2 bg-gray-200 p-2" >
-      <div className="flex flex-col items-center" id='Seat-details'>
+    <div id="deck-wrapper" className="flex flex-col items-center gap-5  bg-blue-200 p-2 rounded-md " >
+      <div className="flex flex-col items-center sticky" id='Seat-details'>
         <h1 className="text-center text-blue-500 text-xl font-medium my-1">Select Your Seats</h1>
         <div className="w-[100px] bg-blue-500 h-0.5 rounded-xl mt-1 mb-3"></div>
-        <div className="flex items-stretch">
+        <div className="flex items-stretch sticky ">
           <div className="flex">
             <p className="bg-blue-500 flex items-center justify-center px-2 text-white font-medium rounded-tl-xl rounded-bl-xl">Selected Seats</p>
           </div>
           {
-            selectedSeats.length > 0 ? 
+            bookingRequest.selected_seats.length > 0 ? 
               <div className="flex flex-wrap items-center justify-evenly border border-blue-500 p-2 bg-white  gap-1 max-w-[300px] overflow-x-auto min-h-[40px]">
               {
-              selectedSeats.map( (seat, index) => (
-                <p key={index} className="bg-blue-500 w-6 h-6 text-white font-semibold flex items-center justify-center text-center rounded-[2.5px]">{seat._id}</p>
+              bookingRequest.selected_seats.map( (seat, index) => (
+                <p key={index} className="bg-blue-500 w-6 h-6 text-white font-semibold flex items-center justify-center text-center rounded-[2.5px]">{seat.seat_id}</p>
                 ))
               }
               </div> :
@@ -39,7 +46,7 @@ function Deck(){
       </div>
         
       </div>
-      <div className="flex items-center gap-5 m-2">
+      <div className="flex items-center gap-5 m-2 ">
         <div id="lower-deck" className="flex flex-col items-center bg-white shadow-lg shadow-gray-500 rounded-3xl">
         <div id="deck-title-lower" className="flex items-center justify-between pt-2 px-4 mt-2 w-full h-[50px] text-gray-400">
           <h1>Lower Deck</h1>
@@ -71,6 +78,11 @@ function Seat({seat}){
   const [selected, setSelected] = useState(false)
 
   function handleSeatClick(){
+    if(seat.isBooked){
+      toast.error('Seat is already booked');
+      return;
+    }
+
     if(selected){
       setSelectedSeats(selectedSeats.filter(s => s._id !== seat._id));
       setBillAmt(billAmt - seat.price);
@@ -88,7 +100,7 @@ function Seat({seat}){
     <div className="flex flex-col items-center justify-between w-[40px] h-[70px] sm:w-[50px] sm:h-[90px] my-1 rounded-[7.5px]">
       <div 
       className={`group flex flex-col items-center justify-between rounded-[7.5px] w-[30px] h-[70px] sm:w-[40px] sm:h-[80px] transition ease-in-out duration-300 border-2 ${seat.isBooked ? seat.bookingDetails.gender === 'Female' ? 'border-pink-300 bg-gray-200 cursor-not-allowed' : 'border-purple-300 bg-gray-200 cursor-not-allowed' : 'border-blue-500 hover:bg-blue-500 cursor-pointer'} ${selected && 'bg-blue-500'}`}
-      onClick={!seat.isBooked && handleSeatClick}
+      onClick={handleSeatClick}
       >
         {
           seat.isBooked ? seat.bookingDetails.gender === 'Female' ?
@@ -145,5 +157,7 @@ function SeatLayout({seatsArray}){
   );
 }
 
-export default Deck
+
+
+export default DeckLayout
 

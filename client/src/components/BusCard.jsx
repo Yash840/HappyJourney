@@ -1,4 +1,4 @@
-function BusCard({bus}){
+function BusCard({bus, onBusCardClick}){
   const AC = (
     <div className="flex items-center gap-1 px-2 py-1 bg-gray-200 rounded-xl">
       <i className="fa-solid fa-snowflake"></i>
@@ -28,7 +28,10 @@ function BusCard({bus}){
   );
 
   return (
-      <div className="flex flex-col p-3 border border-gray-400 rounded-xl hover:border-blue-500 bg-white"> {/* Main Div */}
+      <div 
+      className="flex flex-col p-3 border border-gray-400 rounded-xl hover:border-blue-500 bg-white"
+      onClick={onBusCardClick}
+      > {/* Main Div */}
       <div className="flex justify-between"> {/* Trip Details */}
         <div className="hidden sm:block"> {/* Bus Details */}
           <h1 className="flex text-2xl font-semibold items-center gap-3">{bus.operator} <span className= {`text-[8px] rounded-[5px] py-0.5 px-1 text-white bg-black`}><i className="fa-solid fa-star text-[7.5px]"></i> {bus.rating}</span></h1>

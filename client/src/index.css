@@ -1,1 +1,25 @@
 @import "tailwindcss";
+
+.hidden-scrollbar {
+  scrollbar-width: none; /* Firefox */
+}
+
+.hidden-scrollbar::-webkit-scrollbar {
+  display: none; /* Safari and Chrome */
+}
+
+.thin-scrollbar {
+  scrollbar-width: thin; /* Firefox */
+}
+
+.thin-scrollbar::-webkit-scrollbar {
+  width: 1px; /* Safari and Chrome */
+}
+.thin-scrollbar::-webkit-scrollbar-track {
+  background: transparent; /* Safari and Chrome */
+}
+.thin-scrollbar::-webkit-scrollbar-thumb {
+  background-color: rgba(198, 183, 183, 0.648);
+  border-radius: 4px;
+}
+
