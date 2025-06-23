@@ -1,99 +1,100 @@
-function FilterBoxDeskTop({criteria, setCriteria, allSchedules, setSchedulesToRender}){
-  function addCriteria(e,criterion){
-    if (e.target.checked && criterion in criteria){
-      setCriteria(criteria.filter(c => c !== criterion))
-    }else {
-      setCriteria([...criteria, criterion])
-    }
-  }
+import { useEffect, useState } from "react"
+import { useScheduleContext } from "../contexts/ScheduleContext"
 
-  return <div className="bg-white shadow-md rounded-lg p-5 mb-6">
-        <h1>Filter Buses</h1>
-        {/* Filter Area Begins */}
-        <div className="mt-6 border-t pt-4">
-          <h3 className="font-medium text-lg mb-3">Amenities</h3>
-          <div className="grid grid-cols-2 gap-3">
-            <div className="flex items-center">
-              <input 
-                type="checkbox" 
-                name="ac" 
-                id="ac" 
-                onChange={(e) => addCriteria(e, 'AC')}
-                className="w-4 h-4 text-blue-600 focus:ring-blue-500 border-gray-300 rounded"
-              />
-              <label htmlFor="ac" className="ml-2 text-sm text-gray-700">A/C</label>
-            </div>
-            <div className="flex items-center">
-              <input 
-                type="checkbox" 
-                name="newBus" 
-                id="newBus" 
-                className="w-4 h-4 text-blue-600 focus:ring-blue-500 border-gray-300 rounded"
-              />
-              <label htmlFor="newBus" className="ml-2 text-sm text-gray-700">New Bus</label>
-            </div>
-            <div className="flex items-center">
-              <input 
-                type="checkbox" 
-                name="cp" 
-                id="cp" 
-                onChange={(e) => addCriteria(e, 'Charging-Port')}
-                className="w-4 h-4 text-blue-600 focus:ring-blue-500 border-gray-300 rounded"
-              />
-              <label htmlFor="cp" className="ml-2 text-sm text-gray-700">Charging Port</label>
-            </div>
-            <div className="flex items-center">
-              <input 
-                type="checkbox" 
-                name="tv" 
-                id="tv" 
-                onChange={(e) => addCriteria(e, 'Personal-Screen')}
-                className="w-4 h-4 text-blue-600 focus:ring-blue-500 border-gray-300 rounded"
-              />
-              <label htmlFor="tv" className="ml-2 text-sm text-gray-700">Personal Screen</label>
-            </div>
-          </div>
+const allAmenities = [
+  'A/c', 'Charging-Port', 'Water', 'WiFi','Personal-Screen'
+]
+
+const departureRecord = [
+  '19:30','20:00','20:15','20:30', '20:45', '21:00'
+]
+
+const arrivalRecord =[
+  '05:45','06:00','06:30','07:00','07:30'
+]
+
+
+
+const filterOptions = [
+  {type : 'Amenities', contents : allAmenities, field : 'amenity'},
+  {type : 'Arrival', contents : arrivalRecord, field : 'arrival'},
+  {type : 'Departure', contents : departureRecord, field : 'departure'}
+]
+
+function FilterBoxDeskTop({criteria, setCriteria}){
+  const {filters, dispatchFilters, filterResults} = useScheduleContext();
+  const [selectedOption, setSelectedOption] = useState('')
+
+
+  return <div className="bg-white rounded-2xl p-5 mb-6 w-[300px] shadow-lg shadow-gray-500 flex flex-col">
+        <div id="filter-box" className="flex flex-col gap-2">
+          <h1 className="w-full border border-white border-b-gray-400 pb-1 font-bold text-xl text-blue-500">Filter Results</h1>
+          {
+            filterOptions.map((option, i) => {
+              return <div key={i} className="px-2 text-black">
+                <p 
+                className="text-black text-lg font-semibold w-full cursor-pointer"
+                onClick={(e) => {
+                  if(selectedOption === option.type){
+                    setSelectedOption('')
+                    return
+                  }
+                  setSelectedOption(option.type)
+                }}
+                >{option.type} <span
+                className="transition delay-150 duration-1000 ease-linear"
+                >
+                  {
+                    selectedOption === option.type ? <i className="fa-solid fa-angle-up"></i> : <i className="fa-solid fa-angle-down"></i>
+                  }
+                  </span></p>
+                <div className={`${selectedOption === option.type ? 'flex': 'hidden'} flex-col gap-1`}>
+                  {
+                    option.contents.map((content,i) => {
+                      return <div key={i} className="flex items-center gap-2">
+                        <p className="text-gray-400 text-lg font-bold">. . .</p>
+                        <input 
+                        type={`${option.field === 'amenity' ? 'checkbox' : 'radio'}`}
+                        name={`${option.field === 'amenity' ? content : option.field}`} id={`${content}`} className="text-2xl"
+                        onChange = {
+                          (e) => {
+                            if(e.target.checked){
+                              dispatchFilters({type:`add-${option.field}`, item:content})
+                            }else{
+                              dispatchFilters({type:'remove-amenity', item:content})
+                            }
+                          }
+                        }
+                        />
+                        <label htmlFor={`${content}`}>{content}</label>
+                      </div>
+                    })
+                  }
+                </div>
+              </div>
+            })
+          }
+        </div>
+        <div id="filter-button" className="flex items-center justify-center mt-3 w-full">
           <button 
-          className="mt-4 w-full bg-gray-100 hover:bg-gray-200 text-gray-800 font-medium py-2 px-4 rounded-md transition duration-200"
-          onClick={() => {
-            setSchedulesToRender(filterBuses(allSchedules, criteria));
-          }}
-          >
-            Apply Filters
-          </button>
+          onClick={() => filterResults(filters)}
+          className="bg-blue-500 rounded-md px-2 py-1 text-white w-full cursor-pointer">Apply Filters</button>
         </div>
-        {/* Filter Area Ends */}
-
-        {/* Sort Area Begins */}
-        <div className="mt-6 border-t pt-4">
-          <h3 className="font-medium text-lg mb-3">Sort</h3>
-          <div className="mt-2">
-            <h4 className="text-sm font-medium text-gray-700 mb-2">By Price</h4>
-            <div className="flex flex-col gap-2">
-              <div className="flex items-center">
-                <input 
-                  type="radio" 
-                  name="priceSort" 
-                  id="hTl" 
-                  onChange={(e) =>{ if (e.target.checked) setSchedulesToRender(sortBusesByPrice(busList,'asc'))}}
-                  className="w-4 h-4 text-blue-600 focus:ring-blue-500 border-gray-300 rounded-full"
-                />
-                <label htmlFor="hTl" className="ml-2 text-sm text-gray-700">Low to High</label>
-              </div>
-              <div className="flex items-center">
-                <input 
-                  type="radio" 
-                  name="priceSort" 
-                  id="lTh" 
-                  onChange={(e) =>{ if (e.target.checked) setSchedulesToRender(sortBusesByPrice(busList,'desc'))}}
-                  className="w-4 h-4 text-blue-600 focus:ring-blue-500 border-gray-300 rounded-full"
-                />
-                <label htmlFor="lTh" className="ml-2 text-sm text-gray-700">High to Low</label>
-              </div>
-            </div>
+        <div id="sort-box" className="mt-4">
+          <h1 className="w-full border border-white border-b-gray-400 pb-1 font-bold text-xl text-blue-500">Sort Results</h1>
+          <div className="flex items-center gap-2 font-medium">
+            <input type="radio" name="sort-option" id="price-low-to-high" value="price-low-to-high" />
+            <label htmlFor="price-low-to-high">Price : Low to High</label>
+          </div>
+          <div className="flex items-center gap-2 font-medium">
+            <input type="radio" name="sort-option" id="price-high-to-low" value="price-high-to-low" />
+            <label htmlFor="price-high-to-low">Price : High to Low</label>
+          </div>
+          <div className="flex items-center gap-2 font-medium">
+            <input type="radio" name="sort-option" id="rating-high-to-low" value="rating-high-to-low" />
+            <label htmlFor="rating-high-to-low">Rating : High to Low</label>
           </div>
         </div>
-        {/* Sort Area Ends */}
       </div>
 }
 

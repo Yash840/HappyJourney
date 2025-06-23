@@ -2,7 +2,7 @@ import { useAppContext } from "../contexts/AppContext";
 import DeckLayout from "./Deck";
 import { images } from "../assets/assets.js";
 import { useState, useEffect } from "react";
-import DeckLayout from "./Deck";
+
 
 const gallery = [
   images.Banglore,

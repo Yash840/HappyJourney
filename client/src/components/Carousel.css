@@ -1,0 +1,20 @@
+.swiper-pagination-bullet {
+  opacity: 0.5;
+  background: #BEDBFF;
+}
+
+.swiper-pagination-bullet-active {
+  opacity: 1;
+  background: #155DFC;
+}
+
+.swiper-button-prev,
+.swiper-button-next{
+  background: transparent;
+  opacity: 0.8;
+  width: 60px;
+  height: 60px;
+  border-radius: 15px;
+  color : #155DFC;
+  z-index: 20;
+}

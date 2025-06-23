@@ -29,7 +29,7 @@ function BusCard({bus, onBusCardClick}){
 
   return (
       <div 
-      className="flex flex-col p-3 border border-gray-400 rounded-xl hover:border-blue-500 bg-white"
+      className="flex flex-col p-3 border border-gray-400 rounded-xl hover:border-blue-500 bg-white cursor-pointer"
       onClick={onBusCardClick}
       > {/* Main Div */}
       <div className="flex justify-between"> {/* Trip Details */}

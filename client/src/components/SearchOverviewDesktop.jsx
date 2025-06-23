@@ -1,6 +1,9 @@
 import { useState } from "react";
 import { useSearchParams } from "react-router-dom";
 import { useAppContext } from "../contexts/AppContext";
+import curtain from "../assets/curatain.png";
+import { arrayStateUpdate } from "../lib/utils";
+import { useScheduleContext } from "../contexts/ScheduleContext";
 
 
 function SearchOverviewDesktop(){
@@ -9,46 +12,40 @@ function SearchOverviewDesktop(){
   const [fromCity, setFromCity] = useState(searchParams.get('fromCity') || '');
   const [toCity, setToCity] = useState(searchParams.get('toCity') || '');
   const [date, setDate]= useState(searchParams.get('onwards') || '');
+  const {filters, dispatchFilters} = useScheduleContext();
 
   return (
-    <div className="bg-white shadow-md rounded-lg p-5 mb-6 hidden sm:flex flex-col justify-center items-center sticky top-0 z-10 w-full">
-        <div className="flex flex-col sm:flex-row items-center gap-4 mb-4">
-          <div className="flex items-center w-full sm:w-auto">
-            <label htmlFor="FROM" className="sr-only">From</label>
-            <input 
-              type="text" 
-              name="FROM" 
-              placeholder="From" 
-              value={fromCity}
-              onChange={(e) => setFromCity(e.target.value)}
-              className="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500"
+    <div className={`bg-white rounded-lg p-2 mb-6 hidden sm:flex flex-col justify-center items-center sticky top-0 z-40 w-full shadow-lg shadow-gray-300`}>
+      <form className="rounded-2xl text-center bg-transparent p-2  flex items-center">
+        <div className="flex items-center gap-10 bg-white rounded-2xl ">
+          <div className="flex items-center gap-2">
+            <input type="text" value={fromCity.toLocaleUpperCase()} 
+            placeholder="FROM"
+            onChange={(e) => setFromCity(e.target.value)} 
+            className="border-2 border-gray-400 rounded-sm text-center focus:outline-0  p-2"
             />
           </div>
-          <p className="text-gray-500 font-bold">→</p>
-          <div className="flex items-center w-full sm:w-auto">
-            <label htmlFor="TO" className="sr-only">To</label>
-            <input 
-              type="text" 
-              name="TO" 
-              placeholder="To" 
-              value={toCity}
-              onChange={(e) => setToCity(e.target.value)}
-              className="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500"
+          <div>
+            <input type="text" value={toCity.toLocaleUpperCase()} 
+            placeholder="TO"
+            onChange={(e) => setToCity(e.target.value)} 
+            className="border-2 border-gray-400 rounded-lg text-center focus:outline-0  p-2"
             />
           </div>
-          <input 
-            type="date" 
-            value={date}
-            onChange={(e) => setDate(e.target.value)}
-            className="w-full sm:w-auto px-4 py-2 border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500"
+          
+          <input type="date" value={date} onChange={(e) => setDate(e.target.value)}
+          className="border-2 border-gray-400 rounded-lg text-center focus:outline-0  p-2"
           />
           <button 
-          onClick={() => navigate(`/buses?fromCity=${fromCity}&toCity=${toCity}&onwards=${date}`)}
-          className="bg-blue-500 p-2 rounded-md text-white font-bold"
-          >GO</button>
+          onClick={(e) => {
+            e.preventDefault();
+            navigate(`/buses?fromCity=${fromCity}&toCity=${toCity}&onwards=${date}`);
+          }}
+          className="bg-transparent rounded-lg w-[40px] h-[40px] text-xl font-bold text-blue-500 mx-2 hover:bg-blue-500 hover:text-white transition duration-300"><i className="fa-solid fa-arrows-rotate"></i></button>
         </div>
-        <p className="text-gray-700 font-medium"> Buses Found</p>
-        </div>
+        
+      </form>
+    </div>
   );
 }
 

@@ -8,6 +8,20 @@ import Banglore from './banglore.jpg';
 import Flogo from './flogo.png';
 import newBanner from './highway.jpg';
 import newnewBanner from './highway2.jpg';
+import Carousel1 from './carousel/carousel1.jpg';
+import Carousel2 from './carousel/carousel2.jpeg';
+import Carousel3 from './carousel/carousel3.jpg';
+import Carousel4 from './carousel/carousel4.jpg';
+import Carousel5 from './carousel/carousel5.jpg';
+
+//Carousel Images 
+export const carousal = [
+  {src: Carousel1, author: "John Smith", date: "15 Oct 2023", location: "Mumbai Beach"},
+  {src: Carousel2, author: "Priya Sharma", date: "22 Sep 2023", location: "Pune Hills"},
+  {src: Carousel3, author: "Rajesh Kumar", date: "10 Nov 2023", location: "Banglore Gardens"},
+  {src: Carousel4, author: "Meera Patel", date: "5 Dec 2023", location: "Nashik Vineyards"},
+  {src: Carousel5, author: "Vikram Singh", date: "30 Aug 2023", location: "Lonavala Valley"}
+]
 
 
 export const images = {
@@ -20,7 +34,7 @@ export const images = {
   Banglore,
   Flogo,
   newBanner,
-  newnewBanner
+  newnewBanner,
 };
 
 export const footerLinks = [
@@ -74,11 +88,7 @@ export const buses = [
     isNew: true,
     rating: 4.9,
     reviews: 300,
-    amenities: {
-      ac: true,
-      tv: true,
-      chargingPort: true
-    },
+    amenities: ['A/c',],
     singleSeats: 10,
     doubleSeats: 10,
     minPrice: 950

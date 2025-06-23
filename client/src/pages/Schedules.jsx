@@ -2,40 +2,35 @@ import { use, useEffect, useState } from "react";
 import BusCard from "../components/BusCard";
 import { filterBuses, sortBusesByPrice } from "../contollers/searchActions";
 import sabg from "../assets/sabg.jpg"
-import { Navigate, useSearchParams } from "react-router-dom";
+import { useSearchParams } from "react-router-dom";
 import { useAppContext } from "../contexts/AppContext";
 import BookingOverlay from "../components/BookingOverlay";
 import SearchOverviewDesktop from "../components/SearchOverviewDesktop";
 import FilterBoxDeskTop from "../components/FilterBoxDesktop";
+import { useScheduleContext } from "../contexts/ScheduleContext";
+import AvailableSchedules from "../components/AvailableSchedules";
 
 
 function Schedules({buses}){
   const [busList, setBusList] = useState(buses)
   const [selectedBus, setSelectedBus] = useState(null);
-  const [criteria, setCriteria] = useState([]);
   const [overlay, setOverlay] = useState(false);
   const [searchParams] = useSearchParams();
   const {navigate} = useAppContext();
 
+  const {filters} = useScheduleContext();
+
   return (
-    <div className="bg-gray-100">
+    <div className="bg-blue-100">
       { /* DeskTop  */ }
       <div className="hidden sm:block">
         <SearchOverviewDesktop />
-      {/* Bus Feed Area */}
-      <div className="container flex flex-col sm:flex-row justify-center  mx-auto px-4 py-6 ">
 
-        <FilterBoxDeskTop criteria={criteria} setCriteria={setCriteria} allSchedules={buses} setSchedulesToRender={setBusList}/>
+        <div className="container flex flex-col sm:flex-row items-stretch justify-evenly  mx-auto px-4 py-6 ">
 
-        <div className="overflow-y-scroll max-h-[100vh] w-[60%] thin-scrollbar">
-          <div className="flex flex-col gap-4 rounded-lg p-5">
-            {busList.map((bus, index) => (
-              <BusCard key={index} bus={bus} onBusCardClick={() => {
-                setSelectedBus(bus);
-                setOverlay(true)}}/>
-            ))}
-          </div>
-      </div>
+        <FilterBoxDeskTop allSchedules={buses} setSchedulesToRender={setBusList}/>
+
+        <AvailableSchedules />
       
     </div>
     <button

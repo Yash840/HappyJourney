@@ -13,7 +13,7 @@ function NavBar(){
   }
 
   return (
-    <nav className='flex justify-between items-center px-6 mr-0 md:px-14 lg:px-20 xl:px-10 py-4 border-b border-gray-300 bg-white relative transition-all shadow-sm'>
+    <nav className='flex justify-between items-center px-6 mr-0 md:px-14 lg:px-24 xl:px-24 py-4 border-b border-gray-300 bg-white relative transition-all shadow-sm'>
       <div className='sm:flex justify-between items-center gap-12 hidden'>
         <NavLink to='/'><img src={images.Logo} alt="HappyJourney" className='h-9 transition-transform hover:scale-105'/></NavLink>
         <div className='flex justify-between items-center gap-8 text-gray-600 font-medium'>
