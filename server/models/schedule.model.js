@@ -4,6 +4,8 @@ import {Schema, model} from 'mongoose'
 const scheduleSchema = new Schema({
   bus : {type : Schema.Types.ObjectId, ref : 'buses', unique : true},
   route_id : {type : Schema.Types.ObjectId, ref : 'routes', unique : true},
+  schedule_date: {type: String, required: true}, // Format: YYYY-MM-DD
+  base_price: {type: Number, required: true},
   departure_timings : [
     {
       boarding_point : {type : String, required : true},

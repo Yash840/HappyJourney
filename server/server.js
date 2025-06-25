@@ -3,9 +3,8 @@ import cookieParser from 'cookie-parser'
 import dotenv from 'dotenv'
 import connectDB from './config/db.js'
 import cors from 'cors'
-// import { searchOperator } from './controllers/search.js'
-// import schedulesRouter from './routes/schedules.js'
-import Schedule from './models/schedule.model.js'
+import schedulesRouter from './routes/schedules.js'
+import userRouter from './routes/user.js'
 
 dotenv.config();
 
@@ -21,17 +20,12 @@ app.use(cors({
   credentials : true
 }))
 
+app.use('/api/schedules', schedulesRouter);
+app.use('/api/users', userRouter);
+
 app.get('/api', (req,res) => {
   res.send("Welcome to HappyJourney API");
 })
-
-// app.use('/api/schedules', schedulesRouter)
-
-app.get('/api/opr',async (req, res) => {
-  const opr = await searchOperator('golden@express.com')
-  res.send(opr);
-})
-
 
 app.listen(PORT, () => {
   console.log(`Server Is Listening at http://localhost:${PORT}`);

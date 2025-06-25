@@ -18,7 +18,8 @@ export const fetchRoutesByEndPoints = async (source, destination) => {
   // Function to return an array of Id's of routes, matching given src and dest
   // Used in methods to find routes for fetching available schedules.
   try {
-    const fetchedRoutes = await Route.find({source: source, destination: destination}).select("_id").exec();
+    const fetchedRoutes = await Route.find({source: source, destination: destination}).exec();
+    console.log(fetchedRoutes)
     return fetchedRoutes;
   } catch (err) {
     console.log("Error occurred during finding Routes:", err);
