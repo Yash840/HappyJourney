@@ -145,7 +145,7 @@ function Schedules({buses}){
       </div> */}
 
       <div className="flex items-center justify-center w-full h-full">
-        <BookingOverlay display={overlay} bus={selectedBus} onClose={() => setOverlay(false)}/>
+        <BookingOverlay display={true} bus={selectedBus} onClose={() => setOverlay(false)}/>
       </div>
         
       </div>

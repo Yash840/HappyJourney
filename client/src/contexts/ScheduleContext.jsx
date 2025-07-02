@@ -1,6 +1,7 @@
 import { createContext, useContext, useReducer, useState } from "react";
 import { useAppContext } from "./AppContext";
 import { buses } from "../assets/assets";
+import { useSearchParams } from "react-router-dom";
 
 const ScheduleContext = createContext();
 
@@ -12,14 +13,21 @@ const defaultFilters = {
   droppingPoint : undefined
 }
 
-let allSchedules = buses
+// let allSchedules = buses
+
 
 export const SchduleContextProvider = ({children}) => {
+  const [searchParams] = useSearchParams();
+  const [allSchedules, setAllSchedules] = useState([]);
   const [filters, dispatchFilters] = useReducer(filterReducer, defaultFilters)
   const [schedulesToRender, setSchedulesToRender] = useState(undefined)
+  const [isLoading, setIsLoading] = useState(false);
+  const [fromCity, setFromCity] = useState(searchParams.get('fromCity') || ' ');
+  const [toCity, setToCity] = useState(searchParams.get('toCity') || ' ');
+  const [date, setDate]= useState(searchParams.get('date') || ' ');
 
 
-  return <ScheduleContext.Provider value = {{filters, dispatchFilters, filterResults, allSchedules, schedulesToRender, setSchedulesToRender}}>
+  return <ScheduleContext.Provider value = {{filters, dispatchFilters, filterResults, allSchedules, schedulesToRender, setSchedulesToRender, isLoading, setIsLoading, fromCity, toCity, date, setFromCity, setToCity, setDate, setAllSchedules}}>
     {children}
   </ScheduleContext.Provider>
 }

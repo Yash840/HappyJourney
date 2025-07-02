@@ -7,17 +7,19 @@ export const dateFormatter = (date) => {
 
   return {
     locale : `${day} ${months[month]} ${year}`, // dd Month yyyy
-    formal : `${year}/${month+1}/${day}` // yyyy/mm/dd
+    formal : `${year}-${month+1}-${day}` // yyyy-mm-dd
   }
 }
 
+console.log(dateFormatter(new Date()).locale)
+
 export const compareFormattedDates = (date1, date2) => {
-  const [year1, month1, date1] = date1.split('/');
-  const [year2, month2, date2] = date2.split('/');
+  const [year1, month1, day1] = day1.split('/');
+  const [year2, month2, day2] = day2.split('/');
 
   if(Number (year1) > Number (year2)) return 0;
   if(Number (month1) > Number (month2)) return 0;
-  if(Number (date1) > Number (date2)) return 0;
+  if(Number (day1) > Number (day2)) return 0;
 
   return 1;
 }

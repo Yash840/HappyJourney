@@ -4,7 +4,7 @@ import findAvailableSchedules from '../controllers/scheduleController.js';
 
 const schedulesRouter = express.Router();
 
-schedulesRouter.post('/',validateScheduleRequest,findAvailableSchedules);
+schedulesRouter.get('/',validateScheduleRequest,findAvailableSchedules);
 
 export default schedulesRouter
 

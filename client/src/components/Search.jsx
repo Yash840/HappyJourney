@@ -15,7 +15,7 @@ function Search(){
   // console.log(date)
 
   function handleSearchBuses(){
-    navigate(`/buses?fromCity=${fromCity.toLowerCase()}&toCity=${toCity.toLowerCase()}&onwards=${date}`);
+    navigate(`/buses?fromCity=${fromCity}&toCity=${toCity}&date=${date}`);
   }
 
   return (
@@ -26,13 +26,13 @@ function Search(){
           <div className="flex flex-col sm:flex-row   items-center gap-5 justify-evenly">
             <input type="text" 
             placeholder="SOURCE"
-            value={fromCity.toLocaleUpperCase()}
+            value={fromCity}
             onChange={(e) => setFromCity(e.target.value)}
             className="bg-blue-100 h-10 rounded-md  px-3 py-5 text-blue-700 font-semibold border-4 focus:border-b-blue-500  focus:border-r-blue-500 focus:outline-0 border-blue-100 "/>
             <p className="sm:text-gray-400 font-bold italic hidden sm:block"><i className="fa-duotone fa-solid fa-right-left"></i></p>
             <input type="text" 
             placeholder="DESTINATION"
-            value={toCity.toLocaleUpperCase()}
+            value={toCity}
             onChange={(e) => setToCity(e.target.value)}
             className="bg-blue-100 h-10 rounded-md  px-3 py-5 text-blue-700 font-semibold border-4 focus:border-b-blue-500  focus:border-r-blue-500 focus:outline-0 border-blue-100 "/>
           </div>

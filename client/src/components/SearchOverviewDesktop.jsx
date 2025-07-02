@@ -8,25 +8,22 @@ import { useScheduleContext } from "../contexts/ScheduleContext";
 
 function SearchOverviewDesktop(){
   const {navigate} = useAppContext();
-  const [searchParams] = useSearchParams();
-  const [fromCity, setFromCity] = useState(searchParams.get('fromCity') || '');
-  const [toCity, setToCity] = useState(searchParams.get('toCity') || '');
-  const [date, setDate]= useState(searchParams.get('onwards') || '');
-  const {filters, dispatchFilters} = useScheduleContext();
+  const { fromCity, toCity, date, setFromCity, setToCity, setDate} = useScheduleContext();
+  
 
   return (
     <div className={`bg-white rounded-lg p-2 mb-6 hidden sm:flex flex-col justify-center items-center sticky top-0 z-40 w-full shadow-lg shadow-gray-300`}>
       <form className="rounded-2xl text-center bg-transparent p-2  flex items-center">
         <div className="flex items-center gap-10 bg-white rounded-2xl ">
           <div className="flex items-center gap-2">
-            <input type="text" value={fromCity.toLocaleUpperCase()} 
+            <input type="text" value={fromCity} 
             placeholder="FROM"
             onChange={(e) => setFromCity(e.target.value)} 
             className="border-2 border-gray-400 rounded-sm text-center focus:outline-0  p-2"
             />
           </div>
           <div>
-            <input type="text" value={toCity.toLocaleUpperCase()} 
+            <input type="text" value={toCity} 
             placeholder="TO"
             onChange={(e) => setToCity(e.target.value)} 
             className="border-2 border-gray-400 rounded-lg text-center focus:outline-0  p-2"

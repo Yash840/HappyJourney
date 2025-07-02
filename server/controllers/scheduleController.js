@@ -3,11 +3,11 @@ import Schedule from "../models/schedule.model.js";
 
 const findAvailableSchedules = async (req, res) => {
   try {
-    const availableRoutes = await fetchRoutesByEndPoints(req.body.source, req.body.destination);
+    const availableRoutes = await fetchRoutesByEndPoints(req.query.source, req.query.destination);
 
     const routes = availableRoutes.map(r => r._id);
 
-    const availableSchedules = await Schedule.find({route_id: {$in: routes}, schedule_date : req.body.date}).exec();
+    const availableSchedules = await Schedule.find({route_id: {$in: routes}, schedule_date : req.query.date}).exec();
 
     const formattedSchedules = await Promise.all(availableSchedules.map(async schedule => {
       const [route, operator, seats, bus] = await Promise.all([
@@ -23,7 +23,7 @@ const findAvailableSchedules = async (req, res) => {
         destination: route.destination,
         startTime: schedule.departure_timings[0].time,
         endTime: schedule.arrival_timings[0].time,
-        operator_name: operator.name,
+        operatorName: operator.name,
         singleSeats: seats.single,
         doubleSeats: seats.double,
         basePrice: schedule.base_price,

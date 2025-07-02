@@ -1,4 +1,3 @@
-
 import { carousal } from '../assets/assets.js';
 import Carousel from './Carousel.jsx'
 import Search from './Search.jsx';

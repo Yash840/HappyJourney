@@ -7,3 +7,11 @@ export const arrayStateUpdate = (item, stateArray, stateSetter) => {
   stateSetter([...stateArray, item]);
   return 1;
 }
+
+export const getTime = (date) => {
+  const dt = new Date(date);
+  const hrs = dt.getHours();
+  const min = dt.getMinutes();
+
+  return `${hrs} : ${min}`;
+}
